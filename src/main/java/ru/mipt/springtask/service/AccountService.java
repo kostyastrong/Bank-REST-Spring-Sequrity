@@ -13,7 +13,6 @@ import ru.mipt.springtask.repository.AccountRepository;
 @Slf4j
 public class AccountService {
     @Autowired
-
     private AccountRepository accountRepository;
 
     private final ModelMapper modelMapper = new ModelMapper(); // TODO: never created properly
@@ -29,5 +28,9 @@ public class AccountService {
 
     public AccountEntity getAccount(Long id) {
         return accountRepository.findById(id).orElse(null);
+    }
+
+    public void deleteAll() {
+        accountRepository.deleteAll();
     }
 }

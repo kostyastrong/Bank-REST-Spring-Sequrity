@@ -14,6 +14,7 @@ import ru.mipt.springtask.service.TransactionService;
 public class Controller {
     @Autowired
     private AccountService accountService;
+    @Autowired
     private TransactionService transactionService;
 
     @PostMapping("/add_account/{money}")

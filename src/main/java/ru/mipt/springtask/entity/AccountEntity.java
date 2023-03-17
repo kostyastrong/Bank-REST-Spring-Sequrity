@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Setter
 @Getter
 @Table(name = "accounts")
+
 public class AccountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

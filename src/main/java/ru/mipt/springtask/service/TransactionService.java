@@ -2,6 +2,7 @@ package ru.mipt.springtask.service;
 
 import lombok.Data;
 import lombok.val;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.mipt.springtask.DTO.TransactionDTO;
 import ru.mipt.springtask.Exceptions.InvalidAmountException;
@@ -17,9 +18,11 @@ import org.modelmapper.ModelMapper;
 
 @Service
 public class TransactionService {
+    @Autowired
     AccountRepository accountRepository;
+    @Autowired
     TransactionRepository transactionRepository;
-    private final ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper = new ModelMapper();  // TODO: or spring bean
 
     synchronized void Cancel(Long id) throws InvalidIdException, InvalidAmountException {
         Optional<TransactionEntity> transaction = transactionRepository.findById(id);
@@ -46,7 +49,7 @@ public class TransactionService {
             throw new InvalidAmountException("Negative amount of money to transfer");
         }
         Add(from, -money);
-        Add(to, -money);
+        Add(to, money);
         TransactionDTO transactionDTO = TransactionDTO.builder()
                 .account_from(from)
                 .account_to(to)
@@ -57,5 +60,7 @@ public class TransactionService {
         return transactionEntity;
     }
 
-
+    public void deleteAll() {
+        transactionRepository.deleteAll();
+    }
 }
