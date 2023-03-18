@@ -9,6 +9,8 @@ import ru.mipt.springtask.entity.TransactionEntity;
 import ru.mipt.springtask.service.AccountService;
 import ru.mipt.springtask.service.TransactionService;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @Slf4j
 public class Controller {
@@ -30,7 +32,7 @@ public class Controller {
     }
 
     @GetMapping("/get_account/{id}")
-    public AccountEntity getAccount(@PathVariable("id") Long id) {
+    public AccountEntity getAccount(@PathVariable("id") Long id, HttpSession session) {
         log.info(id.toString());
         return accountService.getAccount(id);
     }

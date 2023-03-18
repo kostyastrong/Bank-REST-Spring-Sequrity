@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class AccountEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "acc_seq")
     @Column(name = "id", nullable = false)
     private Long id;  // final?
 
