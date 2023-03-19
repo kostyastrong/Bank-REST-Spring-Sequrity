@@ -12,4 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class AccountDTO {
     @NotNull
     public Long balance = 0L;
+
+    @NotNull
+    public Long userId;
 }

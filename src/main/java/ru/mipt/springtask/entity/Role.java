@@ -15,8 +15,8 @@ public class Role {
     @Column(unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "role")
-    private Set<UserEntity> users;
+    @ManyToMany
+    private Set<UserPrincipal> userPrincipal;
 
     public Role() {
 
@@ -42,12 +42,12 @@ public class Role {
         this.name = name;
     }
 
-    public Set<UserEntity> getUsers() {
-        return users;
+    public Set<UserPrincipal> getUsers() {
+        return userPrincipal;
     }
 
-    public void setUsers(Set<UserEntity> users) {
-        this.users = users;
+    public void setUsers(Set<UserPrincipal> users) {
+        this.userPrincipal = users;
     }
 
     @Override

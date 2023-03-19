@@ -3,7 +3,8 @@ package ru.mipt.springtask.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Builder(toBuilder = true)
@@ -12,8 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Setter
 @Getter
 @Table(name = "users")
-
-public class UserEntity {
+public class UserPrincipal {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -21,9 +21,13 @@ public class UserEntity {
 
     @Getter
     @Setter
-    private Long password;
+    private String password;
+
+    @Getter
+    @Setter
+    public String userName;
 
 
-    @Column(name = "roles", nullable=false)
-    private String role;
+    @ManyToMany(mappedBy = "userPrincipal")
+    private Set<Role> roles = new HashSet<>();
 }

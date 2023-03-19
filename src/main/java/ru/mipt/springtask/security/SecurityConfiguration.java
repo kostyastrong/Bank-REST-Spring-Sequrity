@@ -5,23 +5,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.mipt.springtask.service.UserAuthService;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
-
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserAuthService userDetailService;
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("student")
+                .withUser("user")
                 .password(passwordEncoder.encode("123"))
-                .roles("STUDENT")
+                .roles("USER")
                 .and()
                 .withUser("admin")
                 .password(passwordEncoder.encode("123"))
                 .roles("ADMIN");
+        auth.userDetailsService(userDetailService);
     }
 }

@@ -10,8 +10,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.mipt.springtask.entity.AccountEntity;
+import ru.mipt.springtask.entity.Role;
+import ru.mipt.springtask.entity.UserPrincipal;
 import ru.mipt.springtask.service.AccountService;
 import ru.mipt.springtask.service.TransactionService;
+import ru.mipt.springtask.service.UserService;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 
@@ -31,6 +38,9 @@ class ControllerTest {
     @Autowired
     private AccountService accountService;
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private TransactionService transactionService;
 
     @BeforeEach
@@ -40,8 +50,13 @@ class ControllerTest {
 
     @Test
     public void testTranslate() throws Exception {
-        AccountEntity account1 = accountService.addAccount(300L);
-        AccountEntity account2 = accountService.addAccount(200L);
+        Set<Role> userSet = new HashSet<Role>();
+        userSet.add(new Role("USER"));
+        UserPrincipal user1 = userService.addUser(new HashSet<Role>(userSet));
+        UserPrincipal user2 = userService.addUser(new HashSet<Role>(userSet));
+
+        AccountEntity account1 = accountService.addAccount(300L, user1.getId());
+        AccountEntity account2 = accountService.addAccount(200L, user2.getId());
         Long beforeMinusing = accountService.getAccount(1L).getBalance();
         mockMvc.perform(post("http://localhost:8080/translate/%s/%s/120"
                 .formatted(account1.getId(), account2.getId()))).andExpect(status().isOk());

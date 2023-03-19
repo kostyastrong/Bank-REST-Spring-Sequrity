@@ -22,4 +22,8 @@ public class AccountEntity {
     @Getter
     @Setter
     private Long balance;
+
+    @Getter
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 }
