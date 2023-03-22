@@ -9,6 +9,8 @@ import ru.mipt.springtask.entity.AccountEntity;
 import ru.mipt.springtask.repository.AccountRepository;
 import ru.mipt.springtask.repository.UserRepository;
 
+import java.util.List;
+
 
 @Service
 @Slf4j
@@ -30,6 +32,10 @@ public class AccountService {
 
     public AccountEntity getAccount(Long id) {
         return accountRepository.findById(id).orElse(null);
+    }
+
+    public List<AccountEntity> getAllAccounts() {
+        return accountRepository.findAll();
     }
 
     public void deleteAll() {

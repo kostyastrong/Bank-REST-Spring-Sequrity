@@ -9,6 +9,7 @@ import ru.mipt.springtask.entity.Role;
 import ru.mipt.springtask.entity.UserPrincipal;
 import ru.mipt.springtask.repository.UserRepository;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -21,5 +22,9 @@ public class UserService {
     public UserPrincipal addUser(Set<Role> roles) {
         UserPrincipal user = UserPrincipal.builder().roles(roles).build();
         return userRepository.save(user);
+    }
+
+    public Optional<UserPrincipal> getUserPrincipal(Long id) {
+        return userRepository.findById(id);
     }
 }
