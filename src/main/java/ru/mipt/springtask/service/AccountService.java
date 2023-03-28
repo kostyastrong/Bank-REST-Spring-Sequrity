@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import ru.mipt.springtask.DTO.AccountDTO;
 import ru.mipt.springtask.entity.AccountEntity;
 import ru.mipt.springtask.repository.AccountRepository;
@@ -21,7 +22,7 @@ public class AccountService {
     private final ModelMapper modelMapper = new ModelMapper(); // TODO: never created properly
 
 
-    public AccountEntity addAccount(Long balance, Long userId) {
+    public AccountEntity addAccount(Long balance, Long userId) {  // TODO: remove dto
         AccountDTO dto = AccountDTO.builder()
                 .balance(balance)
                 .userId(userId).build();

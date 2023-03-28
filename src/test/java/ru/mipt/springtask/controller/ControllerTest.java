@@ -15,6 +15,7 @@ import ru.mipt.springtask.entity.UserPrincipal;
 import ru.mipt.springtask.service.AccountService;
 import ru.mipt.springtask.service.TransactionService;
 import ru.mipt.springtask.service.UserService;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -58,9 +59,9 @@ class ControllerTest {
         AccountEntity account1 = accountService.addAccount(300L, user1.getId());
         AccountEntity account2 = accountService.addAccount(200L, user2.getId());
         Long beforeMinusing = accountService.getAccount(1L).getBalance();
-        mockMvc.perform(post("http://localhost:8080/translate/%s/%s/120"
+        mockMvc.perform(post("translate/%s/%s/120"
                 .formatted(account1.getId(), account2.getId()))).andExpect(status().isOk());
-        var result = mockMvc.perform(get("http://localhost:8080/get_account/%s"
+        var result = mockMvc.perform(get("get_account/%s"
                 .formatted(account1.getId())))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();

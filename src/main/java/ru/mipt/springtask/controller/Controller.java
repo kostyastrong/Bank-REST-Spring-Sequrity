@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -53,7 +54,7 @@ public class Controller {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/get_account/{id}")
-    public AccountEntity getAccount(@PathVariable("id") Long id, HttpSession session) {
+    public AccountEntity getAccount(@PathVariable("id") Long id, HttpSession session, Authentication auth) {
         log.info(id.toString());
         Collection<GrantedAuthority> authorities = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
                 .map(Authentication::getPrincipal)
