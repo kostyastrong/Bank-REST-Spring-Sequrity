@@ -23,7 +23,7 @@ import java.util.*;
 
 @RestController
 @Slf4j
-@RequestMapping("/admin/user")
+@RequestMapping
 public class Controller {
     @Autowired
     private AccountService accountService;
@@ -33,10 +33,14 @@ public class Controller {
     @Autowired
     private TransactionService transactionService;
 
+    @Secured("ROLE_ADMIN")
+
     @PostMapping("/add_account/{money}/{id}")
     public AccountEntity addAccount(@PathVariable("money") Long money, @PathVariable Long id) {
         return accountService.addAccount(money, id);
     }
+
+    @Secured("ROLE_ADMIN")
 
     @PostMapping("/add_user")
     public UserPrincipal addUser() {
