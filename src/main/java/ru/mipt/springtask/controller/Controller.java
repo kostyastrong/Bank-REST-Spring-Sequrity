@@ -8,17 +8,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.mipt.springtask.Exceptions.InvalidAmountException;
 import ru.mipt.springtask.entity.AccountEntity;
 import ru.mipt.springtask.entity.Role;
 import ru.mipt.springtask.entity.TransactionEntity;
 import ru.mipt.springtask.entity.UserPrincipal;
+import ru.mipt.springtask.security.SignUpDTO;
 import ru.mipt.springtask.service.AccountService;
 import ru.mipt.springtask.service.TransactionService;
 import ru.mipt.springtask.service.UserService;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.*;
 
 @RestController
@@ -27,6 +30,9 @@ import java.util.*;
 public class Controller {
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -40,13 +46,15 @@ public class Controller {
         return accountService.addAccount(money, id);
     }
 
-    @Secured("ROLE_ADMIN")
-
     @PostMapping("/add_user")
-    public UserPrincipal addUser() {
-        Set<Role> userSet = new HashSet<>();
-        userSet.add(new Role("USER"));
-        return userService.addUser(userSet);
+    public UserPrincipal addUser(@RequestBody SignUpDTO signUpDTO) {
+        Set<Role> userSetRoles = new HashSet<>();
+        userSetRoles.add(new Role("USER"));
+        UserPrincipal user = UserPrincipal.builder()
+                .password(passwordEncoder.encode(signUpDTO.getPassword()))
+                .userName(signUpDTO.getUserName())
+                .roles(userSetRoles).build();
+        return userService.addUser(user);
     }
 
     @PostMapping("/translate/{account_from}/{account_to}/{money}")  // admin/user???

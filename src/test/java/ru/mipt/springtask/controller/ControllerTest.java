@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.mipt.springtask.entity.AccountEntity;
@@ -54,10 +55,14 @@ class ControllerTest {
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void testTranslate() throws Exception {
 
-        String user1String = mockMvc.perform(post("/add_user"))
+        String user1String = mockMvc.perform(post("/add_user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"userName\":\"user1\",\"password\":\"user1pass\"}"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        String user2String = mockMvc.perform(post("/add_user"))
+        String user2String = mockMvc.perform(post("/add_user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"userName\":\"user2\",\"password\":\"user2pass\"}"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 

@@ -19,8 +19,7 @@ public class UserService {
 
     ModelMapper modelMapper = new ModelMapper();
 
-    public UserPrincipal addUser(Set<Role> roles) {
-        UserPrincipal user = UserPrincipal.builder().roles(roles).build();
+    public UserPrincipal addUser(UserPrincipal user) {
         return userRepository.save(user);
     }
 

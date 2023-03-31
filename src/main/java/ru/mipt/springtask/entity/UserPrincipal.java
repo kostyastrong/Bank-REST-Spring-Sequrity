@@ -27,6 +27,8 @@ public class UserPrincipal {
     @Setter
     public String userName;
 
+    @OneToMany(mappedBy = "userId")
+    private Set<AccountEntity> accounts;
 
     @ManyToMany(mappedBy = "userPrincipal")
     private Set<Role> roles = new HashSet<>();
