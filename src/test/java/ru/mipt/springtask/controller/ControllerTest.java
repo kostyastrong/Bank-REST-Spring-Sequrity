@@ -21,6 +21,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 
@@ -88,6 +89,6 @@ class ControllerTest {
                 .andReturn().getResponse().getContentAsString();
         AccountEntity resultEntity = new ObjectMapper().readValue(result, AccountEntity.class);
         log.info(result);
-        assert resultEntity.getBalance() == 180;
+        assertEquals(resultEntity.getBalance(), 180);
     }
 }
