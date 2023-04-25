@@ -16,14 +16,13 @@ import java.util.stream.Collectors;
 @Service
 public class UserAuthService implements UserDetailsService {
     private final UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserAuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
 
     @Transactional(readOnly = true)
     @Override

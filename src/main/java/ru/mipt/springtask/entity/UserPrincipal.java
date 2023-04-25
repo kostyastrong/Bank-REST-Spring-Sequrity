@@ -14,19 +14,16 @@ import java.util.Set;
 @Getter
 @Table(name = "users")
 public class UserPrincipal {
+    @Getter
+    @Setter
+    public String userName;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;  // final?
-
     @Getter
     @Setter
     private String password;
-
-    @Getter
-    @Setter
-    public String userName;
-
     @OneToMany(mappedBy = "userId")
     private Set<AccountEntity> accounts;
 

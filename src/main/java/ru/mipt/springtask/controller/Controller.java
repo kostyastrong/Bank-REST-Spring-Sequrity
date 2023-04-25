@@ -21,7 +21,6 @@ import ru.mipt.springtask.service.TransactionService;
 import ru.mipt.springtask.service.UserService;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.*;
 
 @RestController

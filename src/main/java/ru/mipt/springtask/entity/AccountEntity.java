@@ -3,7 +3,6 @@ package ru.mipt.springtask.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Entity
 @Builder(toBuilder = true)
