@@ -18,7 +18,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<UserPrincipal> getUserPrincipal(Long id) {
-        return userRepository.findById(id);
+    public UserPrincipal getUserPrincipal(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 }

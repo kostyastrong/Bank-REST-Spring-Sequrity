@@ -80,10 +80,11 @@ class ControllerTest {
         AccountEntity account1 = new ObjectMapper().readValue(account1String, AccountEntity.class);
         AccountEntity account2 = new ObjectMapper().readValue(account2String, AccountEntity.class);
 
+
         Long beforeMinusing = accountService.getAccount(1L).getBalance();
         mockMvc.perform(post("/translate/%s/%s/120"
                 .formatted(account1.getId(), account2.getId()))).andExpect(status().isOk());
-        var result = mockMvc.perform(get("/get_account/%s"
+        String result = mockMvc.perform(get("/get_account/%s"
                 .formatted(account1.getId())))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();

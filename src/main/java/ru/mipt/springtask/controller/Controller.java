@@ -75,7 +75,7 @@ public class Controller {
 
         boolean ability = authorities.stream()
                 .anyMatch(a -> "ROLE_ADMIN".equals(a.getAuthority())) ||
-                userService.getUserPrincipal(accountService.getAccount(id).getUserId())
+                userService.getUserPrincipal(accountService.getAccount(id).getUser().getId())
                         .equals(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         if (!ability) {
