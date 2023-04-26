@@ -3,23 +3,22 @@ package ru.mipt.springtask.service;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.mipt.springtask.DTO.AccountDTO;
-import ru.mipt.springtask.entity.AccountEntity;
-import ru.mipt.springtask.entity.Role;
 import ru.mipt.springtask.entity.UserPrincipal;
 import ru.mipt.springtask.repository.UserRepository;
 
-import java.util.Set;
+import java.util.Optional;
 
 @Service
 public class UserService {
+    ModelMapper modelMapper = new ModelMapper();
     @Autowired
     private UserRepository userRepository;
 
-    ModelMapper modelMapper = new ModelMapper();
-
-    public UserPrincipal addUser(Set<Role> roles) {
-        UserPrincipal user = UserPrincipal.builder().roles(roles).build();
+    public UserPrincipal addUser(UserPrincipal user) {
         return userRepository.save(user);
+    }
+
+    public UserPrincipal getUserPrincipal(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 }
